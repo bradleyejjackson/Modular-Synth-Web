@@ -79,7 +79,6 @@ button, select, input { font: inherit; color: inherit; }
 .wrap { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); max-width: 1500px; margin: 0 auto; }
 
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--panel); }
-@media (max-width: 700px) { header.top { position: static !important; } .sound .pill { display: none; } nav.tabs a { padding: 6px 8px; } .brand { font-size: 22px; } }
 header.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--panel); border-bottom: 1px solid var(--line); }
 header.top .wrap { display: flex; align-items: center; gap: 12px 24px; flex-wrap: wrap; padding-block: 10px; }
 .brand { font: 800 26px/1 var(--display); letter-spacing: .02em; text-transform: uppercase; margin: 0; }
@@ -91,6 +90,18 @@ nav.tabs a:hover { color: var(--ink); }
 .sound { margin-left: auto; display: flex; gap: 8px; align-items: center; }
 .pill { font: 500 12px/1 var(--mono); padding: 6px 9px; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
 .pill.on { color: var(--ok); border-color: currentColor; }
+@media (max-width: 1180px) { header.top .wrap { gap: 8px 14px; } .brand { font-size: 22px; } nav.tabs a { padding: 6px 9px; } }
+@media (max-width: 700px) {
+  header.top { position: static !important; }
+  header.top .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 8px 12px; padding-block: 8px; }
+  .brand { font-size: clamp(14px, 4.4vw, 21px); white-space: nowrap; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+  .sound { margin-left: 0; grid-column: 2; grid-row: 1; gap: 6px; }
+  .sound .btn.primary { padding: 6px 10px; }
+  .sound .pill { display: none; }
+  nav.tabs { grid-column: 1 / -1; grid-row: 2; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: -16px; padding-inline: 16px; mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent); -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent); }
+  nav.tabs::-webkit-scrollbar { display: none; }
+  nav.tabs a { padding: 6px 10px; white-space: nowrap; }
+}
 
 .btn { border: 1px solid var(--line); background: var(--panel); border-radius: 6px; padding: 6px 12px; cursor: pointer; font-weight: 700; }
 .btn:hover { border-color: var(--muted); }
@@ -182,6 +193,33 @@ ul.plain { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
 .bench { display: grid; gap: 10px; min-width: 0; }
 .rackbar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
 .rackbar select { border: 1px solid var(--line); border-radius: 6px; padding: 5px 8px; background: var(--panel); max-width: 100%; }
+.tool-group { display: inline-flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.add-group { flex: 1 1 300px; min-width: 0; }
+.tool-group.actions { margin-left: auto; flex-wrap: nowrap; }
+.add-group select { flex: 1 1 160px; min-width: 0; }
+.add-group .search { flex: 1 1 150px; min-width: 0; }
+.btn.icon { min-width: 30px; padding-inline: 6px; font-size: 15px; line-height: 1; }
+.rackbar .btn:disabled { opacity: .45; cursor: default; }
+.rackbar { position: relative; }
+details.menu > summary { list-style: none; display: inline-flex; align-items: center; gap: 5px; }
+details.menu > summary::-webkit-details-marker { display: none; }
+details.menu > summary::after { content: ""; width: 0; height: 0; border: 4px solid transparent; border-top: 5px solid currentColor; border-bottom: 0; opacity: .7; }
+details.menu[open] > summary { background: var(--bg); border-color: var(--muted); }
+.menu-panel { position: absolute; top: calc(100% + 6px); right: 0; z-index: 7; min-width: 200px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--shadow); padding: 6px; display: grid; gap: 4px; }
+details.menu.wide .menu-panel { min-width: min(380px, 100%); }
+.menu-panel hr { border: 0; border-top: 1px solid var(--line); margin: 3px 0; width: 100%; }
+.menu-panel > .btn { display: flex; justify-content: space-between; gap: 16px; border-color: transparent; background: transparent; text-align: left; font-weight: 600; padding: 6px 8px; }
+.menu-panel > .btn:hover, .menu-panel > .btn:focus-visible { background: var(--bg); }
+.menu-panel > .btn[aria-pressed="true"] { background: transparent; color: var(--ink); border-color: transparent; }
+.menu-panel > .btn[aria-pressed="true"] > span::before { content: "✓ "; color: var(--ok); }
+.menu-panel kbd { font: 500 11px var(--mono); color: var(--muted); }
+.menu-panel label.hint { margin-top: 4px; }
+.menu-panel label.hint:first-child { margin-top: 0; }
+.menu-panel .row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.menu-panel .row .search { flex: 1 1 120px; min-width: 0; }
+.rackbar.src { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; }
+.rack-foot { display: flex; gap: 8px 16px; flex-wrap: wrap; align-items: center; margin: 0; font-size: 12.5px; color: var(--muted); }
+.rack-foot .hint { font-size: 12.5px; }
 .rack { position: relative; height: 600px; overflow: auto; border-radius: 10px; border: 1px solid var(--line); background-color: var(--rack); background-image: radial-gradient(circle, color-mix(in srgb, var(--muted) 30%, transparent) 1px, transparent 1.5px); background-size: 20px 20px; touch-action: pan-x pan-y; }
 @media (max-width: 600px) { .rack { height: 480px; } }
 .rack-inner { position: relative; width: 1460px; height: 1200px; }
@@ -404,11 +442,8 @@ td.loads .btn { margin: 2px 6px 2px 0; }
   .stepbar:not([hidden]) { display: grid; gap: 6px; background: var(--panel); border: 1px solid var(--accent); border-radius: 10px; padding: 10px 12px; scroll-margin-top: 90px; }
   .stepbar p { margin: 0; }
 }
-.more-btn { display: none; }
 @media (max-width: 700px) {
   .stepbar:not([hidden]) { scroll-margin-top: 12px; }
-  .more-btn { display: inline-block; }
-  .bench:not(.more-open) .rackbar.more { display: none; }
   .keys { height: 150px; }
   .key, .key .k { font-size: 12px; }
 }
@@ -459,7 +494,7 @@ td.loads .btn { margin: 2px 6px 2px 0; }
     <div class="sound">
       <button class="btn small theme-btn" id="themeBtn" type="button" aria-label="Dark theme" aria-pressed="false">☾</button>
       <span class="pill" id="midiPill" hidden>MIDI keyboard on</span>
-      <span class="pill" id="soundPill">Sound off</span>
+      <span class="pill" id="soundPill" hidden>Sound off</span>
       <button class="btn primary" id="startBtn" type="button">Start sound</button>
     </div>
   </div>
@@ -472,43 +507,59 @@ td.loads .btn { margin: 2px 6px 2px 0; }
       <div class="bench">
         <div class="stepbar" id="stepbar" aria-label="The step you’re on" hidden></div>
         <div class="edit-banner" id="editBanner" hidden></div>
-        <div class="rackbar">
-          <label class="hint" for="addSel">Add module</label>
-          <select id="addSel"></select>
-          <input class="search small" id="addSearch" type="search" list="addList" placeholder="or search: delay, drum…" aria-label="Search for a module to add">
-          <datalist id="addList"></datalist>
-          <button class="btn small" id="tidyBtn" type="button">Tidy up</button>
-          <button class="btn small" id="foldBtn" type="button" title="Ctrl+G">Fold into block…</button>
-          <button class="btn small" id="clearBtn" type="button">Clear rack</button>
-          <button class="btn small" id="initBtn" type="button">Load Init patch</button>
-          <button class="btn small" id="undoBtn" type="button" title="Ctrl+Z" disabled>Undo</button>
-          <button class="btn small" id="redoBtn" type="button" title="Ctrl+Shift+Z or Ctrl+Y" disabled>Redo</button>
-          <button class="btn small" id="helpBtn" type="button" aria-pressed="false" aria-label="Module help" title="Module help: rest the mouse on a module, a knob or a jack (or Tab to it) to see what it does">?</button>
-          <button class="btn small more-btn" id="moreBtn" type="button" aria-expanded="false" aria-controls="rackMore1 rackMore2">More tools</button>
+        <div class="rackbar" id="rackbar">
+          <div class="tool-group add-group">
+            <label class="hint" for="addSel">Add module</label>
+            <select id="addSel"></select>
+            <input class="search small" id="addSearch" type="search" list="addList" placeholder="or search: delay, drum…" aria-label="Search for a module to add">
+            <datalist id="addList"></datalist>
+          </div>
+          <div class="tool-group actions">
+            <button class="btn small icon" id="undoBtn" type="button" title="Undo (Ctrl+Z)" aria-label="Undo" disabled>↶</button>
+            <button class="btn small icon" id="redoBtn" type="button" title="Redo (Ctrl+Shift+Z or Ctrl+Y)" aria-label="Redo" disabled>↷</button>
+            <button class="btn small" id="tidyBtn" type="button">Tidy up</button>
+          <details class="menu" id="rackMenu">
+            <summary class="btn small">Rack</summary>
+            <div class="menu-panel" role="group" aria-label="Rack">
+              <button class="btn small" id="foldBtn" type="button"><span>Fold into block…</span><kbd>Ctrl+G</kbd></button>
+              <button class="btn small" id="cablesBtn" type="button" aria-pressed="false"><span>Cables on top</span></button>
+              <hr>
+              <button class="btn small" id="initBtn" type="button"><span>Load Init patch</span></button>
+              <button class="btn small" id="clearBtn" type="button"><span>Clear rack</span></button>
+            </div>
+          </details>
+          <details class="menu wide" id="patchMenu">
+            <summary class="btn small">Patch</summary>
+            <div class="menu-panel" role="group" aria-label="Patch">
+              <label class="hint" for="presetSel">Presets</label>
+              <select id="presetSel"></select>
+              <label class="hint" for="mineSel">My patches</label>
+              <select id="mineSel"></select>
+              <div class="row">
+                <input class="search small" id="patchName" type="text" maxlength="60" placeholder="Name this patch" aria-label="Patch name">
+                <button class="btn small" id="saveBtn" type="button">Save</button>
+                <button class="btn small" id="delBtn" type="button" disabled>Delete</button>
+              </div>
+              <hr>
+              <div class="row">
+                <button class="btn small" id="exportBtn" type="button">Export file</button>
+                <button class="btn small" id="importBtn" type="button">Import file</button>
+                <input id="importFile" type="file" accept=".json,application/json" hidden>
+                <button class="btn small" id="shareBtn" type="button">Copy share link</button>
+              </div>
+            </div>
+          </details>
+          <button class="btn small icon" id="helpBtn" type="button" aria-pressed="false" aria-label="Module help" title="Module help: rest the mouse on a module, a knob or a jack (or Tab to it) to see what it does">?</button>
+          </div>
         </div>
-        <div class="rackbar more" id="rackMore1">
-          <label class="hint" for="presetSel">Presets</label>
-          <select id="presetSel"></select>
-          <label class="hint" for="mineSel">My patches</label>
-          <select id="mineSel"></select>
-          <input class="search small" id="patchName" type="text" maxlength="60" placeholder="Name this patch" aria-label="Patch name">
-          <button class="btn small" id="saveBtn" type="button">Save</button>
-          <button class="btn small" id="delBtn" type="button" disabled>Delete</button>
-          <button class="btn small" id="exportBtn" type="button">Export file</button>
-          <button class="btn small" id="importBtn" type="button">Import file</button>
-          <input id="importFile" type="file" accept=".json,application/json" hidden>
-          <button class="btn small" id="shareBtn" type="button">Copy share link</button>
-        </div>
-        <div class="rackbar more" id="rackMore2">
-          <span class="cable-legend" aria-label="Cable colours"><span><i style="background:var(--cab-audio)"></i>Sound</span><span><i style="background:var(--cab-pitch)"></i>Pitch</span><span><i style="background:var(--cab-gate)"></i>Gates</span><span><i style="background:var(--cab-cv)"></i>Control</span></span>
+        <div class="rackbar src" id="srcRow" hidden>
           <label class="hint" for="srcMain">Audio In hears</label>
           <select id="srcMain"><option value="off">nothing</option><option value="voice">Demo: talking synth</option><option value="drums">Demo: drum loop</option><option value="mic">Your microphone</option></select>
           <label class="hint" for="srcSide">Sidechain In hears</label>
           <select id="srcSide"><option value="off">nothing</option><option value="drums">Demo: drum loop</option><option value="voice">Demo: talking synth</option><option value="mic">Your microphone</option></select>
-          <button class="btn small" id="cablesBtn" type="button" aria-pressed="false">Cables on top</button>
-          <span class="hint" id="rackHint">Drag from an orange output to a blue input. Click a plugged input to unplug it. With the keyboard: Tab to a jack and press Enter, then Enter on the jack to connect it to. Delete unplugs.</span>
         </div>
         <div class="rack" id="rack"><div class="rack-inner" id="rackInner"><svg class="cables" id="cables"></svg></div></div>
+        <p class="rack-foot"><span class="cable-legend" aria-label="Cable colours"><span><i style="background:var(--cab-audio)"></i>Sound</span><span><i style="background:var(--cab-pitch)"></i>Pitch</span><span><i style="background:var(--cab-gate)"></i>Gates</span><span><i style="background:var(--cab-cv)"></i>Control</span></span><span class="hint" id="rackHint">Drag from an orange output to a blue input; click a plugged input to unplug it.<span class="for-keys"> Keyboard: Tab to a jack and press Enter, then Enter on the jack to connect it to. Delete unplugs.</span></span></p>
         <div class="player">
           <div class="controls">
             <div class="ctl"><button class="btn small" id="octDown" type="button" aria-label="Octave down">−</button><span>Octave <output id="octOut">C3</output></span><button class="btn small" id="octUp" type="button" aria-label="Octave up">+</button></div>
@@ -4306,7 +4357,7 @@ registerProcessor('patch-school', Proc);`;
     })();
     return starting;
   }
-  function setPill(voices) { const p = $('#soundPill'); p.classList.add('on'); p.textContent = voices ? `Sound on · ${voices} ${voices === 1 ? 'voice' : 'voices'}` : 'Sound on'; }
+  function setPill(voices) { const p = $('#soundPill'); p.hidden = false; p.classList.add('on'); p.textContent = voices ? `Sound on · ${voices} ${voices === 1 ? 'voice' : 'voices'}` : 'Sound on'; }
   let lastVoices = -1;
   function onEngine(m) {
     if (m.t === 'songMeter' || m.t === 'songEnd') { onSongMeter(m); return; }
@@ -4489,7 +4540,15 @@ registerProcessor('patch-school', Proc);`;
   window.addEventListener('keyup', (e) => { const i = KEYMAP.indexOf(e.key.toLowerCase()); if (i >= 0) noteOff(baseNote + i); });
   narrowKeys.addEventListener('change', renderKeys); touchOnly.addEventListener('change', renderKeys);
   function shiftOctave(d) { baseNote = Math.max(12, Math.min(96, baseNote + d)); renderKeys(); }
-  $('#moreBtn').onclick = () => { const open = $('#moreBtn').closest('.bench').classList.toggle('more-open'); $('#moreBtn').setAttribute('aria-expanded', String(open)); };
+  // The Rack and Patch menus: one open at a time, and they close on Escape,
+  // a click elsewhere, or a button inside (picking from a select keeps them open).
+  const menus = [...document.querySelectorAll('details.menu')];
+  for (const m of menus) {
+    m.addEventListener('toggle', () => { if (m.open) for (const o of menus) if (o !== m) o.open = false; });
+    m.addEventListener('click', (e) => { if (e.target.closest('button') && m.querySelector('.menu-panel').contains(e.target)) setTimeout(() => { m.open = false; }, 0); });
+    m.addEventListener('keydown', (e) => { if (e.key === 'Escape' && m.open) { e.stopPropagation(); m.open = false; m.querySelector('summary').focus(); } });
+  }
+  document.addEventListener('pointerdown', (e) => { for (const m of menus) if (m.open && !m.contains(e.target)) m.open = false; });
   $('#octDown').onclick = () => shiftOctave(-12);
   $('#octUp').onclick = () => shiftOctave(12);
   const bindCtl = (id, outId, fmt, fn) => { const el = $('#' + id); const upd = () => { $('#' + outId).textContent = fmt(+el.value); fn(+el.value); }; el.addEventListener('input', upd); upd(); };
@@ -4555,6 +4614,7 @@ registerProcessor('patch-school', Proc);`;
     const f = document.activeElement, keep = f && rackEl.contains(f) ? (f.classList.contains('jack') ? { uid: f.closest('.mod').dataset.uid, dir: f.dataset.dir, port: f.dataset.port } : f.id ? { id: f.id } : null) : null;
     rackEl.querySelectorAll('.mod').forEach((el) => el.remove());
     for (const uid of [...selected]) if (!mod(uid)) selected.delete(uid);
+    paintSrc();
     for (const m of lab.mods) {
       const d = defOf(m), B = m.block;
       const card = h('div', { class: 'mod' + (m.shared ? ' shared' : '') + (B ? ' block' : '') + (selected.has(m.uid) ? ' selected' : '') + (WIDE[m.type] ? ' ' + WIDE[m.type] : ''), 'data-uid': m.uid, style: `left:${m.x}px;top:${m.y}px` },
@@ -4580,7 +4640,7 @@ registerProcessor('patch-school', Proc);`;
         card.append(h('p', { class: 'note' }, 'In the plugin these are the 8 Macro knobs Ableton can see.'));
       }
       if (m.type === 'output') card.append(h('p', { class: 'note' }, 'With only Left patched, you hear it in both speakers.'));
-      if (m.type === 'audioIn' || m.type === 'sidechainIn') card.append(h('p', { class: 'note' }, `Hears what the “${m.type === 'audioIn' ? 'Audio In' : 'Sidechain In'} hears” menu above the rack picks. In the plugin it is the sound on ${m.type === 'audioIn' ? 'the synth’s own track' : 'the track picked in the sidechain menu'}.`));
+      if (m.type === 'audioIn' || m.type === 'sidechainIn') card.append(h('p', { class: 'note' }, `Hears what the “${m.type === 'audioIn' ? 'Audio In' : 'Sidechain In'} hears” menu that appears above the rack picks. In the plugin it is the sound on ${m.type === 'audioIn' ? 'the synth’s own track' : 'the track picked in the sidechain menu'}.`));
       rackEl.append(card);
     }
     sizeRack();
@@ -4778,6 +4838,11 @@ registerProcessor('patch-school', Proc);`;
   addSearch.addEventListener('change', pickSearch);
   addSearch.addEventListener('keydown', (e) => { if (e.key === 'Enter') { const q = addSearch.value.trim().toLowerCase(); const m = MODULES.find((x) => x.id !== 'midiIn' && x.id !== 'output' && x.name.toLowerCase().includes(q)); if (q && m) { addHere(m.id); addSearch.value = ''; toast(`${m.name} added.`); } } });
   $('#tidyBtn').onclick = () => { tidy(); toast('Tidied: signals now flow left to right, with the Output on the right.'); };
+  // The Audio In and Sidechain In pickers only show when the rack has a module that hears them (or one is already set).
+  function paintSrc() {
+    const has = leaves().some((m) => m.type === 'audioIn' || m.type === 'sidechainIn');
+    $('#srcRow').hidden = !(has || $('#srcMain').value !== 'off' || $('#srcSide').value !== 'off');
+  }
   for (const id of ['srcMain', 'srcSide']) $('#' + id).addEventListener('change', () => { send({ t: 'src', src: { main: $('#srcMain').value, side: $('#srcSide').value } }); if ($('#' + id).value === 'mic') connectMic(); flags.src = true; afterChange(); });
   function addHere(type) {
     const n = lab.mods.length % 5;
@@ -6667,7 +6732,7 @@ registerProcessor('patch-school', Proc);`;
         { t: 'Make a synth talk', h: `Above the rack, set ${M('Audio In hears')} to Demo: talking synth (or Your microphone, with headphones on). Remove the Granular Sampler and add ${M('Audio In')}, ${M('Super Saw')} and ${M('Vocoder')}. Patch MIDI ${O('Pitch')} to Super Saw ${I('Pitch')}, Super Saw ${O('Out')} to Vocoder ${I('Carrier')}, Audio In ${O('Left')} to Vocoder ${I('Modulator')}, and Vocoder ${O('Out')} to Output ${I('Left')}. Hold a chord: the chord speaks.`,
           check: () => $('#srcMain').value !== 'off' && L.cab('audioIn', 'left', 'vocoder', 'modulator') && L.cab('superSaw', 'out', 'vocoder', 'carrier') && L.cab('vocoder', 'out', 'output', 'left'),
           apply: () => { if ($('#srcMain').value === 'off') { $('#srcMain').value = 'voice'; send({ t: 'src', src: { main: 'voice', side: $('#srcSide').value } }); } L.drop('gr', 'granular'); L.ensure('ain', 'audioIn', X(1), Y(1)); L.ensure('saw', 'superSaw', X(1), Y(0)); L.ensure('voc', 'vocoder', X(2), Y(0), { level: 0.8 }); L.link('midi', 'pitch', 'saw', 'pitch'); L.link('saw', 'out', 'voc', 'carrier'); L.link('ain', 'left', 'voc', 'modulator'); L.link('voc', 'out', 'out', 'left'); } },
-        { t: 'Bring in sound in Ableton', manual: true, h: `In the plugin, ${M('Audio In')} plays the sound coming into the synth’s own track, and ${M('Sidechain In')} plays a second track. To pick that track, open the sidechain settings on the synth’s device in Ableton and choose, say, your drum track. Patch Sidechain In into a Compressor’s ${I('Sidechain')} for ducking, or into the Vocoder’s ${I('Modulator')}. In the standalone app, Audio In is your sound card’s input. In this lab, ${M('Sidechain In hears')} above the rack picks what Sidechain In plays: a demo drum loop, the talking synth or your microphone.` }
+        { t: 'Bring in sound in Ableton', manual: true, h: `In the plugin, ${M('Audio In')} plays the sound coming into the synth’s own track, and ${M('Sidechain In')} plays a second track. To pick that track, open the sidechain settings on the synth’s device in Ableton and choose, say, your drum track. Patch Sidechain In into a Compressor’s ${I('Sidechain')} for ducking, or into the Vocoder’s ${I('Modulator')}. In the standalone app, Audio In is your sound card’s input. In this lab, ${M('Sidechain In hears')}, which appears above the rack once Sidechain In is in it, picks what Sidechain In plays: a demo drum loop, the talking synth or your microphone.` }
       ]
     },
     {
@@ -7134,7 +7199,7 @@ registerProcessor('patch-school', Proc);`;
       { t: "Turn up the sides", h: "Add two <b class=\"m\">Mid/Side</b> modules (Utilities) and a second <b class=\"m\">VCA</b> with <b class=\"m\">Gain</b> about 1.5. The first one splits: patch the Widener's <b class=\"o\">Left</b> and <b class=\"o\">Right</b> into its <b class=\"i\">Left</b> and <b class=\"i\">Right</b>. The second one joins: patch the first one's <b class=\"o\">Mid</b> straight into its <b class=\"i\">Mid</b>, the first one's <b class=\"o\">Side</b> through the new VCA (<b class=\"i\">In</b>, then <b class=\"o\">Out</b>) into its <b class=\"i\">Side</b>, and its <b class=\"o\">Left</b> and <b class=\"o\">Right</b> into the Output. The middle stays put while the sides get louder.", check: () => L.cab('stereoWidener', 'left', 'midSide', 'left') && L.cab('stereoWidener', 'right', 'midSide', 'right') && L.cab('midSide', 'mid', 'midSide', 'mid') && L.cab('midSide', 'side', 'vca', 'in') && L.cab('vca', 'out', 'midSide', 'side') && L.cab('midSide', 'left', 'output', 'left') && L.cab('midSide', 'right', 'output', 'right') && (L.mods('midSide').length >= 2 && L.any('vca', (p) => p.gain >= 1.3)), apply: () => runDiff({"ensure": [["split", "midSide", 1180, 20, {}, false], ["sides", "vca", 1180, 380, {"gain": 1.5}, false], ["join", "midSide", 1412, 20, {}, false]], "link": [["wide", "left", "split", "left"], ["wide", "right", "split", "right"], ["split", "mid", "join", "mid"], ["split", "side", "sides", "in"], ["sides", "out", "join", "side"], ["join", "left", "out", "left"], ["join", "right", "out", "right"]]}) },
       { t: "Quick check", quiz: {"q": "Why does the Stereo Widener keep the bass in the middle?", "choices": ["Bass can't be panned", "Both speakers share it, so it stays strong and still works in mono", "It makes the sound quieter", "So the reverb can't reach it"], "answer": 1, "why": "Low notes carry the weight of a track. In the middle both speakers push them together, and nothing cancels when the track is played on one speaker."} },
     ] },
-    { id: "p7_guitar", part: 7, num: "7.4", title: "A guitar rig", intro: "Build a guitarist's pedalboard: a gate, a wah, an amp and a spring reverb. An Oscillator stands in for the guitar, so you can hear every step, and the last step shows how to plug in a real one.", how: ["A <b class=\"m\">Noise Gate</b> silences a sound whenever it drops below its <b class=\"m\">Threshold</b>. Guitarists use one first, so the hum and hiss between notes never reach the amp, which would make them louder.", "An <b class=\"m\">Auto-Wah</b> is a filter that opens the harder you play. <b class=\"m\">Amp &amp; Cabinet</b> is a guitar amp and its speaker box: <b class=\"m\">Gain</b> goes from clean to crunch to full distortion. A <b class=\"m\">Spring Reverb</b> is the boing and splash of the springs inside an amp.", "Ableton only lets audio into an instrument through its <b class=\"m\">sidechain</b>. <b class=\"m\">Sidechain In</b> is where that audio arrives, so a guitar on another track can come through this rig. Here, Sidechain In hears above the rack picks what it plays."], steps: [
+    { id: "p7_guitar", part: 7, num: "7.4", title: "A guitar rig", intro: "Build a guitarist's pedalboard: a gate, a wah, an amp and a spring reverb. An Oscillator stands in for the guitar, so you can hear every step, and the last step shows how to plug in a real one.", how: ["A <b class=\"m\">Noise Gate</b> silences a sound whenever it drops below its <b class=\"m\">Threshold</b>. Guitarists use one first, so the hum and hiss between notes never reach the amp, which would make them louder.", "An <b class=\"m\">Auto-Wah</b> is a filter that opens the harder you play. <b class=\"m\">Amp &amp; Cabinet</b> is a guitar amp and its speaker box: <b class=\"m\">Gain</b> goes from clean to crunch to full distortion. A <b class=\"m\">Spring Reverb</b> is the boing and splash of the springs inside an amp.", "Ableton only lets audio into an instrument through its <b class=\"m\">sidechain</b>. <b class=\"m\">Sidechain In</b> is where that audio arrives, so a guitar on another track can come through this rig. Here, Sidechain In hears, which appears above the rack once Sidechain In is in it, picks what it plays."], steps: [
       { t: "A stand-in guitar", h: "Add an <b class=\"m\">Oscillator</b>, a <b class=\"m\">VCA</b>, an <b class=\"m\">Envelope</b> (Attack right down, <b class=\"m\">Decay</b> about 0.6 s, <b class=\"m\">Sustain</b> 0.2) and a <b class=\"m\">Noise Gate</b> (Dynamics). Patch MIDI In <b class=\"o\">Pitch</b> to Oscillator <b class=\"i\">Pitch</b>, Oscillator <b class=\"o\">Out</b> to VCA <b class=\"i\">In</b>, VCA <b class=\"o\">Out</b> to Noise Gate <b class=\"i\">In</b>, Noise Gate <b class=\"o\">Out</b> to Output <b class=\"i\">Left</b>, MIDI In <b class=\"o\">Gate</b> to Envelope <b class=\"i\">Gate</b> and Envelope <b class=\"o\">Out</b> to VCA <b class=\"i\">CV 1</b>. Raise the gate's <b class=\"m\">Threshold</b> to about -25 dB: each note's tail now stops cleanly, where hum would have been.", check: () => L.cab('midiIn', 'gate', 'envelope', 'gate') && L.cab('envelope', 'out', 'vca', 'cv1') && L.cab('midiIn', 'pitch', 'oscillator', 'pitch') && L.cab('oscillator', 'out', 'vca', 'in') && L.cab('vca', 'out', 'noiseGate', 'in') && L.cab('noiseGate', 'out', 'output', 'left') && (L.any('noiseGate', (p) => p.threshold >= -32.0)), apply: () => runDiff({"ensure": [["osc", "oscillator", 252, 20, {}, false], ["vca", "vca", 484, 20, {}, false], ["env", "envelope", 484, 380, {"attack": 0.001, "decay": 0.6, "sustain": 0.2}, false], ["gate", "noiseGate", 716, 20, {"threshold": -25.0}, false]], "link": [["midi", "gate", "env", "gate"], ["env", "out", "vca", "cv1"], ["midi", "pitch", "osc", "pitch"], ["osc", "out", "vca", "in"], ["vca", "out", "gate", "in"], ["gate", "out", "out", "left"]]}) },
       { t: "A wah", h: "Add an <b class=\"m\">Auto-Wah</b> (Modulation effects) after the gate: Noise Gate <b class=\"o\">Out</b> to its <b class=\"i\">In</b>, its <b class=\"o\">Out</b> to Output <b class=\"i\">Left</b>. Turn <b class=\"m\">Sensitivity</b> up to about 0.8: each note opens the wah, which closes as the note fades.", check: () => L.cab('noiseGate', 'out', 'autoWah', 'in') && L.cab('autoWah', 'out', 'output', 'left') && (L.any('autoWah', (p) => p.sensitivity >= 0.7)), apply: () => runDiff({"ensure": [["wah", "autoWah", 716, 380, {"sensitivity": 0.8}, false]], "link": [["gate", "out", "wah", "in"], ["wah", "out", "out", "left"]]}) },
       { t: "Amp and cabinet", h: "Add an <b class=\"m\">Amp &amp; Cabinet</b> (Shaping &amp; effects): Auto-Wah <b class=\"o\">Out</b> to its <b class=\"i\">In</b>, its <b class=\"o\">Left</b> and <b class=\"o\">Right</b> to Output <b class=\"i\">Left</b> and <b class=\"i\">Right</b>. Turn <b class=\"m\">Gain</b> up past 0.6 for crunch, and try each <b class=\"m\">Cab</b>.", check: () => L.cab('autoWah', 'out', 'ampCab', 'in') && L.cab('ampCab', 'left', 'output', 'left') && L.cab('ampCab', 'right', 'output', 'right') && (L.any('ampCab', (p) => p.gain >= 0.6)), apply: () => runDiff({"ensure": [["amp", "ampCab", 948, 20, {"gain": 0.65, "level": 0.5}, false]], "link": [["wah", "out", "amp", "in"], ["amp", "left", "out", "left"], ["amp", "right", "out", "right"]]}) },
@@ -7409,7 +7474,7 @@ registerProcessor('patch-school', Proc);`;
     const m = st.h.match(SAVE_RE); if (!m) return null;
     const name = m[1], rest = tail ?? st.h.replace(SAVE_RE, '');
     return {
-      h: `Type ${M(name)} in the ${M('Name this patch')} box above the rack and press ${M('Save')}: it goes under ${M('My patches')} in this browser (on a phone, they’re behind More tools). ${rest}`,
+      h: `Type ${M(name)} in the ${M('Name this patch')} box under ${M('Patch')} above the rack and press ${M('Save')}: it goes under ${M('My patches')} in this browser. ${rest}`,
       check: () => savedAs(name),
       apply: () => { $('#patchName').value = name; savePatch(); }
     };
@@ -7427,7 +7492,7 @@ registerProcessor('patch-school', Proc);`;
 
   const WEB_STEPS = {
     // 1.2: blocks work in the lab too
-    'l13|Fold modules into a block': () => ({ h: `Select the Oscillator and the Tuner: Shift-click their titles, or drag a box around them on an empty part of the rack. Press ${M('Fold into block…')} above the rack (or Ctrl+G), name it, tick the knobs to show on it and press ${M('Fold')}. The two become one box, its jacks standing for the cables that went in and out, and it sounds the same. Its ${M('+')} button unfolds it again, and ${M('save')} keeps it under ${M('My blocks')} in the Add module menu.`,
+    'l13|Fold modules into a block': () => ({ h: `Select the Oscillator and the Tuner: Shift-click their titles, or drag a box around them on an empty part of the rack. Press ${M('Fold into block…')} under ${M('Rack')} above the rack (or Ctrl+G), name it, tick the knobs to show on it and press ${M('Fold')}. The two become one box, its jacks standing for the cables that went in and out, and it sounds the same. Its ${M('+')} button unfolds it again, and ${M('save')} keeps it under ${M('My blocks')} in the Add module menu.`,
       check: () => lab.mods.some((m) => m.block && ['oscillator', 'tuner'].every((t) => leaves(m.block.mods).some((q) => q.type === t))),
       apply: () => { const ids = ['oscillator', 'tuner'].map((t) => (lab.mods.find((m) => m.type === t) || {}).uid).filter(Boolean); collapse(ids, 'Tuned oscillator', suggestedKnobs(ids)); } }),
     // 4.2: the Drum Sampler's pads start with sounds in the lab
@@ -7452,7 +7517,7 @@ registerProcessor('patch-school', Proc);`;
     'l3|Thicken it with Unison': () => ({ h: `In the plugin, set ${M('Unison')} to 3 on the Voices row for a wide, thick pad: each key plays three copies of the voice, a little out of tune with each other. Hear a close version swaps the Wavetable for a ${M('Super Saw')}, which does the same inside one module with seven saws.`,
       close: { build: () => { const wt = lab.mods.find((m) => m.type === 'wavetable'); if (wt) { const uid = addModule('superSaw', wt.x, wt.y, { detune: 0.35 }); for (const c of lab.cables) { if (c.f === wt.uid) { c.f = uid; c.fo = 'out'; } if (c.t === wt.uid && c.ti === 'pitch') c.t = uid; } lab.cables = lab.cables.filter((c) => c.t !== wt.uid && c.f !== wt.uid); lab.mods = lab.mods.filter((m) => m !== wt); } return null; }, notes: chord([57, 60, 64], 0, 3.5) } }),
     // 3.3: the lab's Euclidean modules can do this
-    'l4|Find new grooves': () => ({ h: `Change ${M('Hits')} and ${M('Rotate')} on the Euclideans while it plays, and try the Tempo slider under the rack. In the plugin the Clock follows Ableton’s tempo once you press Play. The ${M('Euclidean Drums')} preset (Presets, above the rack) is this patch, finished.`,
+    'l4|Find new grooves': () => ({ h: `Change ${M('Hits')} and ${M('Rotate')} on the Euclideans while it plays, and try the Tempo slider under the rack. In the plugin the Clock follows Ableton’s tempo once you press Play. The ${M('Euclidean Drums')} preset (Presets, under ${M('Patch')} above the rack) is this patch, finished.`,
       check: () => L.mods('euclidean').some((m) => ![[16, 4, 0], [16, 3, 4], [16, 11, 0]].some(([s, x, r]) => Math.round(m.p.steps) === s && Math.round(m.p.hits) === x && Math.round(m.p.rotate) === r)),
       apply: () => L.set('e1', { hits: 5 }) }),
     // 4.7, 4.9, 4.11, 4.12: the plugin's Arp page and voice settings
@@ -7541,7 +7606,7 @@ registerProcessor('patch-school', Proc);`;
       check: () => !!song.name && songSaved(), apply: () => saveSong('My lofi track') }),
     // 6.2 The chords
     'p6_chords|On the Keys track': pickTrack('Keys', 'This lesson writes the Keys track’s sound and loop.'),
-    'p6_chords|A lofi keys sound': (st) => ({ h: `Open the ${M('Lofi keys')} patch you saved in lesson 4.1 from ${M('My patches')} above the rack, or press Show me to build it again. It needs a ${M('Tape')} or a ${M('Vinyl')} and a cable into the Output.`, apply: fresh(st) }),
+    'p6_chords|A lofi keys sound': (st) => ({ h: `Open the ${M('Lofi keys')} patch you saved in lesson 4.1 from ${M('My patches')} under ${M('Patch')} above the rack, or press Show me to build it again. It needs a ${M('Tape')} or a ${M('Vinyl')} and a cable into the Output.`, apply: fresh(st) }),
     'p6_chords|F minor': keyStep('The chord pads and Snap to key follow it.'),
     'p6_chords|Four seventh chords': () => ({ check: () => hasLofiChords(labPat()), apply: pattern((p) => { if (hasLofiChords(p)) return; p.bars = 4; writeChords(p, FMINOR, [0, 5, 2, 6], true, 53, 0.8); TE.sevenths = true; }) }),
     'p6_chords|Roll them softly': () => ({ h: `Turn every note’s ${M('Velocity')} down to about 0.55 (${M('Select all')}, then Velocity). Then, in at least two chords, set the grid to ${M('1/32')} and drag the upper notes a step or two later than the lowest one, so the chord rolls up like a pianist’s.`,
@@ -7549,7 +7614,7 @@ registerProcessor('patch-school', Proc);`;
       apply: pattern((p) => { for (let bar = 0; bar < 4; bar++) chordNotes(p, bar).sort((a, b) => a[1] - b[1]).forEach((n, i) => { const late = 0.125 * i * (bar % 2 === 0 ? 1 : 0.5); n[0] = 4 * bar + late; n[2] = 4 - late; n[3] = 0.55 - 0.03 * i; }); }) }),
     // 6.3 The beat
     'p6_drums|On the Drums track': pickTrack('Drums', 'This lesson writes the Drums track’s sound and loop.'),
-    'p6_drums|A dusty kit': (st) => ({ h: st.h.replace('Press <b class="m">Clear</b> above the patch.', `Press ${M('Clear rack')} above the rack.`), apply: fresh(st) }),
+    'p6_drums|A dusty kit': (st) => ({ h: st.h.replace('Press <b class="m">Clear</b> above the patch.', `Press ${M('Clear rack')} under ${M('Rack')} above the rack.`), apply: fresh(st) }),
     'p6_drums|A boom-bap beat': () => ({ h: `In ${editorWords} set ${M('Length')} to 2 bars, press ${M('Clear')} and then ${M('Drums')} for the drum view. In each bar: a kick on beat 1 and just after beat 3 (the "and" of 3), a snare on beats 2 and 4, and a closed hat on every 1/8. Press ${M('Play loop')} and nod along.`,
       check: () => hasBeat(labPat()),
       apply: pattern((p) => { if (hasBeat(p)) return; p.notes = []; p.bars = 2; for (const b of [0, 2.5, 4, 6.5, 7.5]) p.notes.push([b, KICK, 0.25, 0.9]); for (const b of [1, 3, 5, 7]) p.notes.push([b, SNARE, 0.25, 0.85]); for (let i = 0; i < 16; i++) p.notes.push([0.5 * i, HAT, 0.25, 0.65]); TE.view.lab = 'drums'; }) }),
@@ -7558,7 +7623,7 @@ registerProcessor('patch-school', Proc);`;
       apply: () => { st.apply(); editLabPattern((p) => { for (const n of p.notes) if (n[1] === HAT) n[3] = n[0] % 1 < 0.01 ? 0.65 : 0.4; }); } }),
     // 6.4 The bass
     'p6_bass|On the Bass track': pickTrack('Bass', 'This lesson writes the Bass track’s sound and loop.'),
-    'p6_bass|A round bass': (st) => ({ h: st.h.replace('Press <b class="m">Clear</b> above the patch.', `Press ${M('Clear rack')} above the rack.`), apply: fresh(st) }),
+    'p6_bass|A round bass': (st) => ({ h: st.h.replace('Press <b class="m">Clear</b> above the patch.', `Press ${M('Clear rack')} under ${M('Rack')} above the rack.`), apply: fresh(st) }),
     'p6_bass|F minor': keyStep('Snap to key then keeps the bass in F minor too.'),
     'p6_bass|Follow the roots': () => ({ h: `Set ${M('Length')} to 4 bars and press ${M('Clear')}. Add one long note at the start of each bar on the chord’s root, below F2: ${M('F1')}, ${M('C#1')}, ${M('G#1')} and ${M('D#1')}. Press ${M('Play loop')}, or Play loops on the Song mode tab to hear every track.`,
       check: () => { const p = labPat(); return p.bars >= 4 && [5, 1, 8, 3].every((r, bar) => p.notes.some((n) => Math.abs(n[0] - 4 * bar) < 0.26 && n[1] < 53 && pc(n[1]) === r)); },
@@ -7567,7 +7632,7 @@ registerProcessor('patch-school', Proc);`;
       apply: pattern((p) => { for (const n of p.notes) n[2] = Math.min(n[2], 2.5); [41, 37, 44, 39].forEach((x, bar) => p.notes.push([4 * bar + 3.5, x + 7, 0.5, 0.6])); }) }),
     // 6.5 The melody
     'p6_melody|On the Melody track': pickTrack('Melody', 'This lesson writes the Melody track’s sound and loop.'),
-    'p6_melody|A soft lead': (st) => ({ h: st.h.replace('Press <b class="m">Clear</b> above the patch.', `Press ${M('Clear rack')} above the rack.`), apply: fresh(st) }),
+    'p6_melody|A soft lead': (st) => ({ h: st.h.replace('Press <b class="m">Clear</b> above the patch.', `Press ${M('Clear rack')} under ${M('Rack')} above the rack.`), apply: fresh(st) }),
     'p6_melody|F minor': keyStep(`Turn on ${M('Snap to key')} too, so every note you draw is in F minor.`),
     'p6_melody|Ideas from chance': () => ({ h: `Add a ${M('Random Melody')} with its ${M('Root')} on F and ${M('Scale')} on Minor, patch its ${O('Pitch')} into the Oscillator’s ${I('Pitch')} and its ${O('Gate')} into the Envelope’s ${I('Gate')}, and hold a key (Hold keys helps). Hum along and remember a phrase you like. The next step’s Show me patches MIDI In back.`,
       check: () => L.cab('randomMelody', 'pitch', 'oscillator', 'pitch'),
@@ -7577,7 +7642,7 @@ registerProcessor('patch-school', Proc);`;
       apply: () => { L.drop('rm', 'randomMelody'); L.link('midi', 'pitch', 'osc', 'pitch'); L.link('midi', 'gate', 'env', 'gate'); editLabPattern((p) => { p.notes = []; p.bars = 4; [[0, 1, 72, 0.7], [1, 0.5, 75, 0.6], [1.5, 1.5, 77, 0.75], [4, 1, 77, 0.7], [5, 0.5, 75, 0.6], [5.5, 2, 72, 0.65], [8, 1, 72, 0.7], [9, 2.5, 79, 0.75], [12, 1, 70, 0.65], [13, 2, 67, 0.6]].forEach(([s, l, x, v]) => p.notes.push([s, x, l, v])); }); } }),
     // 6.6 The texture
     'p6_texture|On the Texture track': pickTrack('Texture', 'This lesson writes the Texture track’s sound and loop.'),
-    'p6_texture|Rain on the window': (st) => ({ h: st.h.replace('Press <b class="m">Clear</b> above the patch.', `Press ${M('Clear rack')} above the rack.`), apply: fresh(st) }),
+    'p6_texture|Rain on the window': (st) => ({ h: st.h.replace('Press <b class="m">Clear</b> above the patch.', `Press ${M('Clear rack')} under ${M('Rack')} above the rack.`), apply: fresh(st) }),
     'p6_texture|One long note': () => ({ h: `In ${editorWords} set ${M('Length')} to 8 bars, press ${M('Clear')}, and draw one note that lasts the whole loop (any note: noise has no pitch). The rain fades in and holds.`,
       check: () => labPat().notes.some((n) => n[2] >= 16), apply: pattern((p) => { p.notes = [[0, 53, 32, 0.7]]; p.bars = 8; }) }),
     // 6.7 Arrange the track
@@ -7854,12 +7919,12 @@ registerProcessor('patch-school', Proc);`;
         h('li', { html: '<b>Every note gets its own copy</b> of the whole patch (a voice), which is why each envelope follows its own key. The pill at the top counts the voices playing.' }),
         h('li', { html: '<b>Shared modules</b> (teal title bar) are one copy for every note: click <b>per note</b> on a title bar to switch. A cable from a per-note module into a shared one carries all the notes added together. Lesson 2.7 shows why reverbs want this.' }),
         h('li', { html: '<b>Cable colours</b> say what a cable carries: <span style="color:var(--cab-audio)">sound</span>, <span style="color:var(--cab-pitch)">pitch</span>, <span style="color:var(--cab-gate)">gates and triggers</span>, or <span style="color:var(--cab-cv)">other control</span>.' }),
-        h('li', { html: '<b>Ctrl+Z undoes</b> any change to the rack and Ctrl+Shift+Z (or Ctrl+Y) redoes it. <b>Save</b> keeps the patch under My patches in this browser; <b>Export file</b> and <b>Copy share link</b> take it somewhere else. <b>Presets</b> loads the plugin’s own sounds.' }),
-        h('li', { html: '<b>Blocks:</b> Shift-click module titles (or drag a box around them) and press <b>Fold into block…</b> (Ctrl+G) to fold them into one box with just the jacks and knobs you pick. <b>+</b> unfolds it, and <b>save</b> keeps it under My blocks in the Add module menu. Blocks go with saved patches and share links.' }),
+        h('li', { html: '<b>Ctrl+Z undoes</b> any change to the rack and Ctrl+Shift+Z (or Ctrl+Y) redoes it. The <b>Patch</b> menu above the rack holds saving: <b>Save</b> keeps the patch under My patches in this browser, <b>Export file</b> and <b>Copy share link</b> take it somewhere else, and <b>Presets</b> loads the plugin’s own sounds.' }),
+        h('li', { html: '<b>Blocks:</b> Shift-click module titles (or drag a box around them) and press <b>Fold into block…</b> under <b>Rack</b> (Ctrl+G) to fold them into one box with just the jacks and knobs you pick. <b>+</b> unfolds it, and <b>save</b> keeps it under My blocks in the Add module menu. Blocks go with saved patches and share links.' }),
         h('li', { html: 'Light the <b>?</b> button above the rack, then rest the mouse on a module’s title, a knob or a jack (or Tab to it) to see what it does or carries.' }),
         h('li', { html: 'The output jacks light up with the signal coming out of them, and the little screen under the rack shows the sound’s wave.' })),
       h('p', { class: 'hint' }, `This lab runs ${LAB_TYPES.size} of the plugin’s ${PLUGIN_MODULES} modules in your browser, rebuilt from the plugin’s own code. They behave like the plugin’s, but the plugin sounds better and has the Voices row (Mono, Glide and Unison), the toolbar effects and the Arp, Sequencer &amp; Looper page. The ${LESSONS.filter((l) => l.part < 7).length} lessons follow the plugin’s Patch School in six parts: foundations, deeper synthesis, rhythm, sound recipes for lofi and other genres, turning a patch into a track, and a capstone where you make a whole lofi track. After them come ${LESSONS.filter((l) => l.part === 7).length} optional module workshops. Take them in order or jump around. Your progress is kept in this browser.`),
-      h('p', { class: 'hint' }, 'Works in a recent Chrome, Edge, Firefox or Safari, on a computer, tablet or phone. On a phone the step you’re on shows just above the rack, and More tools opens the presets and saving. Sound starts when you press Start sound (browsers only play sound after a click). Headphones help with the bass.'),
+      h('p', { class: 'hint' }, 'Works in a recent Chrome, Edge, Firefox or Safari, on a computer, tablet or phone. On a phone the step you’re on shows just above the rack, and the Rack and Patch menus hold the rest of the rack’s buttons. Sound starts when you press Start sound (browsers only play sound after a click). Headphones help with the bass.'),
       h('p', { class: 'hint' }, 'Once you’ve opened it, the page keeps working with no internet. Install it from the browser’s menu (Add to Home Screen on a phone) for an app icon that opens it offline too. Save for offline downloads the whole page as one file you can keep or copy to another computer.'),
       h('div', { class: 'lesson-actions' }, h('button', { type: 'button', class: 'btn', onclick: saveOffline }, 'Save for offline')),
       h('div', { class: 'lesson-actions' }, h('button', { type: 'button', class: 'btn primary', onclick: () => pickLesson(LESSONS.find((l) => l.id === 'l13')) }, 'Go to Lesson 1.2')));
@@ -7949,7 +8014,7 @@ registerProcessor('patch-school', Proc);`;
     v.append(
       h('div', {}, h('p', { class: 'eyebrow' }, 'Every preset is a finished patch you can take apart'), h('h2', {}, 'Learn from presets'),
         h('p', {}, 'Press a preset’s name to load it in the Patch lab (or load it in the plugin and open the Patch page), then follow its cables from MIDI In to Output. Change one knob at a time and listen. If you break it, Ctrl+Z, or load the preset again.'),
-        h('p', { class: 'hint' }, `${LAB_PRESETS.length} of the plugin’s presets play in the lab, from the Presets menu above the rack. They come without the plugin’s toolbar settings (glide, unison, its delay and reverb) and Track editor loops, so some sound plainer here.`)),
+        h('p', { class: 'hint' }, `${LAB_PRESETS.length} of the plugin’s presets play in the lab, from Presets under the Patch menu above the rack. They come without the plugin’s toolbar settings (glide, unison, its delay and reverb) and Track editor loops, so some sound plainer here.`)),
       h('div', { class: 'tablewrap' }, h('table', {}, h('thead', {}, h('tr', {}, h('th', {}, 'To learn'), h('th', {}, 'Load in the lab'), h('th', {}, 'Look at'))),
         h('tbody', {}, rows.map((r) => h('tr', {}, h('td', {}, r[0]), h('td', { class: 'loads' }, r[1].split(', ').map(presetButton)), h('td', {}, r[2])))))),
       h('div', {}, h('h3', {}, 'Tips for Ableton and MIDI keyboards'), h('div', { class: 'tips' }, tips.map(([t, d]) => h('div', {}, h('b', {}, t), d)))),
