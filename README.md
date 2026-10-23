@@ -28,6 +28,8 @@ The lab plays all of the plugin's 157 modules. The Acid Sequencer's strip sets e
 
 Like the plugin, modules can be folded into a block: one box with just the jacks and knobs you pick. Shift-click (or Ctrl-click) module titles, or drag a box around them on an empty part of the rack, then press Fold into block… (Ctrl+G); its window also lists every module with a tick box, so it works on a phone or from the keyboard. MIDI In and Output stay outside. Dragging the title of one selected module moves them all. A block's **+** unfolds it, and **save** keeps it under My blocks in the Add module menu (Manage My blocks… deletes them). A block sounds the same as the modules inside it. In a patch file or share link a block is `{ "type": "block", "x", "y", "block": { "name", "mods", "cables", "inputs": [{ "label", "ports": [[module, port]] }], "outputs", "knobs": [{ "label", "mod", "param" }] } }`, with modules named by their place in the block's list; pages from before blocks skip them.
 
+Above the rack is one row of buttons: Add module and its search, Undo and Redo, Tidy up, the **Rack** menu (Fold into block…, Cables on top, Load Init patch, Clear rack), the **Patch** menu (Presets, My patches, Save and Delete, Export file, Import file, Copy share link) and **?**. The Audio In hears and Sidechain In hears row shows only while the rack has an Audio In or Sidechain In module. The cable colour key and the drag hint sit under the rack.
+
 The **?** button above the rack is the plugin's module help: while it's lit, resting the mouse on a module's title, a knob or a jack (or Tabbing to a jack or knob) shows what it does or what the jack carries. It starts off and is kept in this browser with the other settings.
 
 ## Keyboard, theme and sound
@@ -36,7 +38,7 @@ Jacks work from the keyboard: Tab to a jack and press Enter or Space to pick it,
 
 ## Phones, installing and offline
 
-On one column (a tablet or phone) the step you're on is repeated in a strip just above the rack's buttons, with Show me and Back to the lesson, and Start lesson scrolls to it. Under 700 px wide the presets, saving and Audio In rows fold behind More tools; under 600 px the keyboard shows one octave so the keys are about 40 px wide. On a touch screen the computer-key letters and their hint are hidden.
+On one column (a tablet or phone) the step you're on is repeated in a strip just above the rack's buttons, with Show me and Back to the lesson, and Start lesson scrolls to it. The toolbar wraps to two rows, and the Rack and Patch menus work the same at every width; under 600 px the keyboard shows one octave so the keys are about 40 px wide. On a touch screen the computer-key letters and their hint are hidden.
 
 The page is installable (Add to Home Screen, or Install in Chrome and Edge): a script near the top makes the web app manifest as a blob and its icons as canvas PNGs, and the favicon is an inline SVG. `sw.js` is the offline copy: a service worker that keeps the page and the Google fonts in a cache, fetching the page fresh when online and serving the cached one when not. Page updates are picked up on the next online visit. Save for offline (in Lesson 1.1) also downloads the page as one file, which works with no internet since the page fetches nothing else.
 
