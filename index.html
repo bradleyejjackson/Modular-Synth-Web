@@ -1,33 +1,40 @@
-<!doctype html><html><head><meta charset=utf8><title>Modular Synth Patch School</title><meta name="description" content="Learn modular synthesis in your browser: patch modules with cables, play them, and work through the Patch School lessons."><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23c4511a'/%3E%3Cpath d='M20 40Q30 64 44 24' fill='none' stroke='%23fff' stroke-width='5' stroke-linecap='round'/%3E%3Ccircle cx='20' cy='40' r='7' fill='%23c4511a' stroke='%23fff' stroke-width='4'/%3E%3Ccircle cx='44' cy='24' r='7' fill='%23c4511a' stroke='%23fff' stroke-width='4'/%3E%3C/svg%3E"><meta name="theme-color" content="#f6f7f8" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#1a1f25" media="(prefers-color-scheme: dark)"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Patch School"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html><head><meta charset=utf8><title>Modular Synth Patch School</title><meta name="description" content="Learn modular synthesis in your browser: patch modules with cables, play them, and work through the Patch School lessons."><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='4' y='4' width='56' height='56' rx='14' fill='%231B2230'/%3E%3Cg fill='none' stroke='%23fff' stroke-width='1.4' opacity='.4'%3E%3Ccircle cx='28' cy='25' r='1.9'/%3E%3Ccircle cx='35' cy='25' r='1.9'/%3E%3Ccircle cx='28' cy='39' r='1.9'/%3E%3Ccircle cx='35' cy='39' r='1.9'/%3E%3Ccircle cx='42' cy='39' r='1.9'/%3E%3Ccircle cx='28' cy='46' r='1.9'/%3E%3Ccircle cx='35' cy='46' r='1.9'/%3E%3Ccircle cx='42' cy='46' r='1.9'/%3E%3C/g%3E%3Cpath d='M21 46V18H37a7 7 0 0 1 0 14H21' fill='none' stroke='%23E8653A' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cg fill='%23E8653A'%3E%3Ccircle cx='21' cy='46' r='3.6'/%3E%3Ccircle cx='21' cy='32' r='3.6'/%3E%3C/g%3E%3Cg fill='%231B2230'%3E%3Ccircle cx='21' cy='46' r='1.4'/%3E%3Ccircle cx='21' cy='32' r='1.4'/%3E%3C/g%3E%3C/svg%3E"><meta name="theme-color" content="#f6f7f8" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#1a1f25" media="(prefers-color-scheme: dark)"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Patch School"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <script>try{const t=JSON.parse(localStorage.getItem('modular-synth-patch-school-prefs')||'{}').theme;if(t==='dark'||t==='light')document.documentElement.dataset.theme=t;}catch(e){}</script>
 
 <meta name="claude:viewport-fit-sides" content="cover">
 <script>
 // Installable: the web app manifest and its icons are made here (a blob and
-// canvas PNGs), so the page needs no icon files. The icon matches the favicon.
+// canvas PNGs), so the page needs no icon files. The icon matches the favicon
+// and the header logo.
 (function () {
   try {
-    const icon = (n) => {
+    // The P slate mark (free colours): a dark tile, a 4 by 5 patchbay and one
+    // orange cable drawing a P. full = edge to edge, for maskable and Apple icons.
+    const icon = (n, full) => {
       const c = document.createElement('canvas'); c.width = c.height = n;
       const g = c.getContext('2d'); g.scale(n / 64, n / 64);
-      g.fillStyle = '#c4511a'; g.fillRect(0, 0, 64, 64);
-      g.strokeStyle = '#fff'; g.lineCap = 'round'; g.lineWidth = 5;
-      g.beginPath(); g.moveTo(20, 40); g.quadraticCurveTo(30, 64, 44, 24); g.stroke();
-      g.lineWidth = 4;
-      for (const [x, y] of [[20, 40], [44, 24]]) { g.beginPath(); g.arc(x, y, 7, 0, 7); g.fill(); g.stroke(); }
+      g.fillStyle = '#1B2230';
+      if (full) g.fillRect(0, 0, 64, 64); else { g.beginPath(); g.roundRect(4, 4, 56, 56, 14); g.fill(); }
+      g.strokeStyle = 'rgba(255,255,255,.4)'; g.lineWidth = 1.4;
+      for (const [x, y] of [[28, 25], [35, 25], [28, 39], [35, 39], [42, 39], [28, 46], [35, 46], [42, 46]]) { g.beginPath(); g.arc(x, y, 1.9, 0, 7); g.stroke(); }
+      g.strokeStyle = g.fillStyle = '#E8653A'; g.lineWidth = 5; g.lineCap = g.lineJoin = 'round';
+      g.stroke(new Path2D('M21 46V18H37a7 7 0 0 1 0 14H21'));
+      for (const y of [46, 32]) { g.beginPath(); g.arc(21, y, 3.6, 0, 7); g.fill(); }
+      g.fillStyle = '#1B2230';
+      for (const y of [46, 32]) { g.beginPath(); g.arc(21, y, 1.4, 0, 7); g.fill(); }
       return c.toDataURL('image/png');
     };
     const page = location.href.split('#')[0].split('?')[0];
-    const i192 = icon(192), i512 = icon(512);
+    const i192 = icon(192), i512 = icon(512), m512 = icon(512, true);
     const m = {
       name: 'Modular Synth Patch School', short_name: 'Patch School', id: page, start_url: page, scope: page.replace(/[^/]*$/, ''),
-      display: 'standalone', background_color: '#e6e9ec', theme_color: '#c4511a',
+      display: 'standalone', background_color: '#e6e9ec', theme_color: '#1B2230',
       description: 'Learn modular synthesis in your browser: patch modules with cables, play them, and work through the lessons.',
-      icons: [{ src: i192, sizes: '192x192', type: 'image/png' }, { src: i512, sizes: '512x512', type: 'image/png' }, { src: i512, sizes: '512x512', type: 'image/png', purpose: 'maskable' }]
+      icons: [{ src: i192, sizes: '192x192', type: 'image/png' }, { src: i512, sizes: '512x512', type: 'image/png' }, { src: m512, sizes: '512x512', type: 'image/png', purpose: 'maskable' }]
     };
     const link = (rel, href) => { const l = document.createElement('link'); l.rel = rel; l.href = href; document.head.append(l); };
     link('manifest', URL.createObjectURL(new Blob([JSON.stringify(m)], { type: 'application/manifest+json' })));
-    link('apple-touch-icon', icon(180));
+    link('apple-touch-icon', icon(180, true));
     // Offline: sw.js (next to this page) keeps a copy of it. Not on file://.
     if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('sw.js').catch(() => {});
   } catch (e) {}
@@ -58,7 +65,7 @@
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #111418; --panel: #1a1f25; --rack: #0c0f12; --ink: #e6eaef; --muted: #98a2ad; --line: #2c333c;
+    --logo-tile: #F2F4F7; --logo-hole: #161B26; --bg: #111418; --panel: #1a1f25; --rack: #0c0f12; --ink: #e6eaef; --muted: #98a2ad; --line: #2c333c;
     --out: #f08236; --in: #4f9bf0; --accent: #f08236; --ok: #4cc27a;
     --c1: #f08236; --c2: #4f9bf0; --c3: #e8c140; --c4: #4cc27a; --c5: #ec6aa6; --c6: #9a83f0;
     --shadow: 0 1px 2px rgba(0, 0, 0, .5), 0 4px 14px rgba(0, 0, 0, .3);
@@ -66,7 +73,7 @@
   }
 }
 :root[data-theme="dark"] {
-  --bg: #111418; --panel: #1a1f25; --rack: #0c0f12; --ink: #e6eaef; --muted: #98a2ad; --line: #2c333c;
+  --logo-tile: #F2F4F7; --logo-hole: #161B26; --bg: #111418; --panel: #1a1f25; --rack: #0c0f12; --ink: #e6eaef; --muted: #98a2ad; --line: #2c333c;
   --out: #f08236; --in: #4f9bf0; --accent: #f08236; --ok: #4cc27a;
   --c1: #f08236; --c2: #4f9bf0; --c3: #e8c140; --c4: #4cc27a; --c5: #ec6aa6; --c6: #9a83f0;
   --shadow: 0 1px 2px rgba(0, 0, 0, .5), 0 4px 14px rgba(0, 0, 0, .3);
@@ -81,8 +88,12 @@ button, select, input { font: inherit; color: inherit; }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--panel); }
 header.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--panel); border-bottom: 1px solid var(--line); }
 header.top .wrap { display: flex; align-items: center; gap: 12px 24px; flex-wrap: wrap; padding-block: 10px; }
-.brand { font: 800 26px/1 var(--display); letter-spacing: .02em; text-transform: uppercase; margin: 0; }
-.brand span { color: var(--accent); }
+/* The P slate logo: the wordmark is Outfit 600 turned into paths, so it needs no font. */
+:root { --logo-tile: #1B2230; --logo-hole: #fff; }
+.brand { margin: 0; line-height: 0; min-width: 0; }
+.brand svg { display: block; height: 40px; width: auto; max-width: 100%; }
+.brand .tile { fill: var(--logo-tile); }
+.brand .holes { stroke: var(--logo-hole); }
 nav.tabs { display: flex; gap: 4px; flex-wrap: wrap; }
 nav.tabs a { text-decoration: none; color: var(--muted); font-weight: 700; padding: 6px 12px; border-radius: 6px; }
 nav.tabs a[aria-current="page"] { color: var(--ink); background: var(--bg); box-shadow: inset 0 -2px 0 var(--accent); }
@@ -90,11 +101,11 @@ nav.tabs a:hover { color: var(--ink); }
 .sound { margin-left: auto; display: flex; gap: 8px; align-items: center; }
 .pill { font: 500 12px/1 var(--mono); padding: 6px 9px; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
 .pill.on { color: var(--ok); border-color: currentColor; }
-@media (max-width: 1180px) { header.top .wrap { gap: 8px 14px; } .brand { font-size: 22px; } nav.tabs a { padding: 6px 9px; } }
+@media (max-width: 1180px) { header.top .wrap { gap: 8px 14px; } .brand svg { height: 34px; } nav.tabs a { padding: 6px 9px; } }
 @media (max-width: 700px) {
   header.top { position: static !important; }
   header.top .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 8px 12px; padding-block: 8px; }
-  .brand { font-size: clamp(14px, 4.4vw, 21px); white-space: nowrap; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+  .brand svg { height: clamp(26px, 8vw, 32px); }
   .sound { margin-left: 0; grid-column: 2; grid-row: 1; gap: 6px; }
   .sound .btn.primary { padding: 6px 10px; }
   .sound .pill { display: none; }
@@ -483,7 +494,7 @@ td.loads .btn { margin: 2px 6px 2px 0; }
 
 <header class="top">
   <div class="wrap">
-    <h1 class="brand">Modular Synth <span>Patch School</span></h1>
+    <h1 class="brand"><svg viewBox="0 0 248 64" role="img" aria-label="Patch School"><rect class="tile" x="4" y="4" width="56" height="56" rx="14"/><g class="holes" fill="none" stroke-width="1.4" opacity=".4"><circle cx="28" cy="25" r="1.9"/><circle cx="35" cy="25" r="1.9"/><circle cx="28" cy="39" r="1.9"/><circle cx="35" cy="39" r="1.9"/><circle cx="42" cy="39" r="1.9"/><circle cx="28" cy="46" r="1.9"/><circle cx="35" cy="46" r="1.9"/><circle cx="42" cy="46" r="1.9"/></g><path d="M21 46V18H37a7 7 0 0 1 0 14H21" fill="none" stroke="#E8653A" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><g fill="#E8653A"><circle cx="21" cy="46" r="3.6"/><circle cx="21" cy="32" r="3.6"/></g><g class="tile"><circle cx="21" cy="46" r="1.4"/><circle cx="21" cy="32" r="1.4"/></g><path class="tile" d="M81.16 34.17V30.84H86.05Q87.01 30.84 87.79 30.45Q88.57 30.06 89.02 29.33Q89.47 28.59 89.47 27.54Q89.47 26.52 89.02 25.77Q88.57 25.02 87.79 24.63Q87.01 24.24 86.05 24.24H81.16V20.91H86.47Q88.48 20.91 90.09 21.72Q91.69 22.53 92.62 24.02Q93.55 25.5 93.55 27.54Q93.55 29.58 92.62 31.06Q91.69 32.55 90.09 33.36Q88.48 34.17 86.47 34.17ZM78.16 42V20.91H82.24V42ZM101.12 42.3Q99.14 42.3 97.55 41.31Q95.96 40.32 95.06 38.61Q94.16 36.9 94.16 34.77Q94.16 32.61 95.06 30.9Q95.96 29.19 97.55 28.2Q99.14 27.21 101.12 27.21Q102.68 27.21 103.91 27.84Q105.14 28.47 105.87 29.59Q106.61 30.72 106.67 32.13V37.35Q106.61 38.79 105.87 39.9Q105.14 41.01 103.91 41.66Q102.68 42.3 101.12 42.3ZM101.84 38.67Q103.49 38.67 104.51 37.58Q105.53 36.48 105.53 34.74Q105.53 33.6 105.06 32.72Q104.6 31.83 103.77 31.34Q102.95 30.84 101.84 30.84Q100.76 30.84 99.94 31.34Q99.11 31.83 98.64 32.72Q98.18 33.6 98.18 34.74Q98.18 35.91 98.64 36.8Q99.11 37.68 99.94 38.17Q100.76 38.67 101.84 38.67ZM105.32 42V38.1L105.95 34.56L105.32 31.08V27.51H109.22V42ZM114.33 42V21.48H118.26V42ZM110.94 30.96V27.51H121.65V30.96ZM129.85 42.3Q127.63 42.3 125.86 41.31Q124.09 40.32 123.07 38.61Q122.05 36.9 122.05 34.77Q122.05 32.61 123.07 30.9Q124.09 29.19 125.88 28.19Q127.66 27.18 129.85 27.18Q131.56 27.18 133 27.81Q134.44 28.44 135.49 29.61L132.97 32.16Q132.4 31.53 131.61 31.2Q130.81 30.87 129.85 30.87Q128.77 30.87 127.91 31.37Q127.06 31.86 126.56 32.72Q126.07 33.57 126.07 34.74Q126.07 35.88 126.56 36.77Q127.06 37.65 127.91 38.14Q128.77 38.64 129.85 38.64Q130.84 38.64 131.63 38.3Q132.43 37.95 133 37.29L135.55 39.84Q134.44 41.04 133 41.67Q131.56 42.3 129.85 42.3ZM147.02 42V33.69Q147.02 32.4 146.21 31.59Q145.4 30.78 144.11 30.78Q143.27 30.78 142.61 31.14Q141.95 31.5 141.57 32.16Q141.2 32.82 141.2 33.69L139.67 32.91Q139.67 31.2 140.39 29.93Q141.11 28.65 142.38 27.93Q143.66 27.21 145.31 27.21Q146.96 27.21 148.24 27.93Q149.51 28.65 150.23 29.91Q150.95 31.17 150.95 32.82V42ZM137.27 42V20.31H141.2V42ZM165.52 42.3Q162.97 42.3 161.15 41.43Q159.34 40.56 157.87 38.82L160.57 36.12Q161.5 37.35 162.73 38.03Q163.96 38.7 165.73 38.7Q167.32 38.7 168.26 38.07Q169.21 37.44 169.21 36.33Q169.21 35.37 168.67 34.77Q168.13 34.17 167.24 33.75Q166.36 33.33 165.29 32.98Q164.23 32.64 163.16 32.19Q162.1 31.74 161.21 31.07Q160.33 30.39 159.79 29.32Q159.25 28.26 159.25 26.64Q159.25 24.72 160.18 23.37Q161.11 22.02 162.73 21.3Q164.35 20.58 166.39 20.58Q168.55 20.58 170.29 21.39Q172.03 22.2 173.14 23.49L170.44 26.19Q169.51 25.17 168.53 24.69Q167.56 24.21 166.33 24.21Q164.92 24.21 164.11 24.75Q163.3 25.29 163.3 26.31Q163.3 27.18 163.84 27.72Q164.38 28.26 165.26 28.65Q166.15 29.04 167.21 29.4Q168.28 29.76 169.34 30.21Q170.41 30.66 171.29 31.38Q172.18 32.1 172.72 33.23Q173.26 34.35 173.26 36Q173.26 38.94 171.19 40.62Q169.12 42.3 165.52 42.3ZM182.27 42.3Q180.05 42.3 178.28 41.31Q176.51 40.32 175.49 38.61Q174.47 36.9 174.47 34.77Q174.47 32.61 175.49 30.9Q176.51 29.19 178.29 28.19Q180.08 27.18 182.27 27.18Q183.98 27.18 185.42 27.81Q186.86 28.44 187.91 29.61L185.39 32.16Q184.82 31.53 184.02 31.2Q183.23 30.87 182.27 30.87Q181.19 30.87 180.33 31.37Q179.48 31.86 178.98 32.72Q178.49 33.57 178.49 34.74Q178.49 35.88 178.98 36.77Q179.48 37.65 180.33 38.14Q181.19 38.64 182.27 38.64Q183.26 38.64 184.05 38.3Q184.85 37.95 185.42 37.29L187.97 39.84Q186.86 41.04 185.42 41.67Q183.98 42.3 182.27 42.3ZM199.44 42V33.69Q199.44 32.4 198.63 31.59Q197.82 30.78 196.53 30.78Q195.69 30.78 195.03 31.14Q194.37 31.5 193.99 32.16Q193.62 32.82 193.62 33.69L192.09 32.91Q192.09 31.2 192.81 29.93Q193.53 28.65 194.8 27.93Q196.08 27.21 197.73 27.21Q199.38 27.21 200.65 27.93Q201.93 28.65 202.65 29.91Q203.37 31.17 203.37 32.82V42ZM189.69 42V20.31H193.62V42ZM212.86 42.3Q210.67 42.3 208.91 41.3Q207.16 40.29 206.12 38.56Q205.09 36.84 205.09 34.71Q205.09 32.58 206.11 30.88Q207.13 29.19 208.9 28.19Q210.67 27.18 212.83 27.18Q215.05 27.18 216.8 28.19Q218.56 29.19 219.58 30.88Q220.6 32.58 220.6 34.71Q220.6 36.84 219.58 38.56Q218.56 40.29 216.8 41.3Q215.05 42.3 212.86 42.3ZM212.83 38.64Q213.94 38.64 214.79 38.14Q215.65 37.65 216.11 36.77Q216.58 35.88 216.58 34.74Q216.58 33.6 216.1 32.73Q215.62 31.86 214.78 31.37Q213.94 30.87 212.83 30.87Q211.75 30.87 210.91 31.37Q210.07 31.86 209.59 32.73Q209.11 33.6 209.11 34.74Q209.11 35.88 209.59 36.77Q210.07 37.65 210.91 38.14Q211.75 38.64 212.83 38.64ZM229.43 42.3Q227.24 42.3 225.48 41.3Q223.73 40.29 222.69 38.56Q221.66 36.84 221.66 34.71Q221.66 32.58 222.68 30.88Q223.7 29.19 225.47 28.19Q227.24 27.18 229.4 27.18Q231.62 27.18 233.37 28.19Q235.13 29.19 236.15 30.88Q237.17 32.58 237.17 34.71Q237.17 36.84 236.15 38.56Q235.13 40.29 233.37 41.3Q231.62 42.3 229.43 42.3ZM229.4 38.64Q230.51 38.64 231.36 38.14Q232.22 37.65 232.68 36.77Q233.15 35.88 233.15 34.74Q233.15 33.6 232.67 32.73Q232.19 31.86 231.35 31.37Q230.51 30.87 229.4 30.87Q228.32 30.87 227.48 31.37Q226.64 31.86 226.16 32.73Q225.68 33.6 225.68 34.74Q225.68 35.88 226.16 36.77Q226.64 37.65 227.48 38.14Q228.32 38.64 229.4 38.64ZM239.19 42V20.31H243.12V42Z"/></svg></h1>
     <nav class="tabs" aria-label="Sections">
       <a href="#lab" data-tab="lab">Patch lab</a>
       <a href="#chords" data-tab="chords">Chords</a>
