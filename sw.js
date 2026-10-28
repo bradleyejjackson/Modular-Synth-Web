@@ -1,7 +1,7 @@
 // Patch School offline copy. The page is one file, so the service worker keeps
 // that file (plus the Google fonts) in a cache. The page is fetched fresh when
 // online and comes from the cache when not; fonts come from the cache first.
-const CACHE = 'patch-school-v1';
+const CACHE = 'patch-school-v2';
 self.addEventListener('install', (e) => { e.waitUntil(caches.open(CACHE).then((c) => c.add('./'))); self.skipWaiting(); });
 self.addEventListener('activate', (e) => {
   e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== CACHE).map((k) => caches.delete(k)))).then(() => self.clients.claim()));
