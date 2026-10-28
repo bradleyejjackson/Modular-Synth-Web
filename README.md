@@ -2,7 +2,7 @@
 
 A browser version of the Patch School lessons from the Modular Synth plugin. Patch modules together, play them with your computer keys or a MIDI keyboard, and work through all 49 lessons and 22 module workshops, Song mode ones included, in the browser.
 
-**Play it:** https://bradleyejjackson.github.io/Modular-Synth-Web/
+**Play it:** https://bradleyejjackson.github.io/modular-synth-web/
 
 The site is two files: `index.html` is the whole page, and `sw.js` lets it work offline. The page is generated from the plugin's own lessons, modules and presets, so it is updated by regenerating it rather than by editing it here.
 
